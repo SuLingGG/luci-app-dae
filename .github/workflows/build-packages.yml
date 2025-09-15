@@ -11,7 +11,7 @@ jobs:
       matrix:
         arch:
           - aarch64_generic    
-          - i386_pentium4
+          - aarch64_cortex-a53
           - x86_64
         sdk:
           - openwrt-24.10
@@ -53,14 +53,3 @@ jobs:
         with:
           name: ${{ matrix.arch }}
           path: bin/packages/${{ matrix.arch }}/packages_ci/*.ipk
-
-      - name: Upload packages
-        uses: ncipollo/release-action@v1
-        with:
-          name: dae_${{ env.version }}
-          allowUpdates: true
-          tag: dae_${{ env.version }}
-          commit: next
-          token: ${{secrets.ACTIONS_DEPLOY_KEY}}
-          replacesArtifacts: true
-          artifacts: "bin/packages/${{ matrix.arch }}/packages_ci/*.ipk"
